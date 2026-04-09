@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>火龙果's Shanghai Eats</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="hero">
+      <div class="hero-text">
+        <p class="subtitle">Personally curated by 火龙果</p>
+        <h1>The Best Restaurants in Shanghai</h1>
+        <p class="tagline">Hidden gems, local favourites, and unforgettable meals — handpicked from someone who actually lives here.</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="shanghainese">Shanghainese</button>
+      <button class="filter-btn" data-filter="sichuan">Sichuan</button>
+      <button class="filter-btn" data-filter="hotpot">Hotpot</button>
+      <button class="filter-btn" data-filter="yunnan">云南菜 Yunnan</button>
+      <button class="filter-btn" data-filter="international">International</button>
+      <button class="filter-btn" data-filter="dim-sum">Dim Sum</button>
+    </section>
+
+    <section class="grid" id="restaurant-grid">
+      <!-- Cards injected by JS -->
+    </section>
+  </main>
+
+  <footer>
+    <p>Made with love by 火龙果 &mdash; Shanghai, China</p>
+  </footer>
+
+  <script src="restaurants.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
