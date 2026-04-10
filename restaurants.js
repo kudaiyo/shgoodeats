@@ -8,7 +8,7 @@ const restaurants = [
     neighborhood_en: "French Concession · Puxi",
     address: "进贤路，徐汇区",
     address_en: "Jinxian Rd, Xuhui District",
-    description: "云南菜馆，藏在法租界的街边小店。环境简朴，烟火气十足，更适合朋友聚餐而非正式请客。没有包间，但有大圆桌，2到10个人都能坐得舒服。",
+    description: "云南菜馆，藏在法租界的街边小店。环境简朴，明厨亮灶，隔着玻璃能直接看见后厨操作。烟火气十足，更适合朋友聚餐而非正式请客。没有包间，但有大圆桌，2到10个人都能坐得舒服。",
     description_en: "A no-frills Yunnan restaurant tucked into a side street in the French Concession. Lively and unpretentious — perfect for a casual dinner with friends. No private rooms, but the large round tables fit groups of 2 to 10 easily.",
     mustTry: ["黑三剁", "木姜子牛肉", "菌子鸡汤", "炸排骨", "烤罗非鱼", "酥红豆", "辣子鸡", "牙签牛肉"],
     mustTry_en: ["Black Three-Mince (黑三剁)", "Litsea Beef (木姜子牛肉)", "Wild Mushroom Chicken Soup (菌子鸡汤)", "Fried Pork Ribs (炸排骨)", "Grilled Tilapia (烤罗非鱼)", "Crispy Red Beans (酥红豆)", "Chilli Chicken (辣子鸡)", "Toothpick Beef (牙签牛肉)"],
