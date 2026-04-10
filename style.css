@@ -648,6 +648,40 @@ body {
 }
 
 /* ── FOOTER ── */
+.guestbook {
+  max-width: 720px;
+  margin: 60px auto 0;
+  padding: 0 20px 60px;
+}
+
+.guestbook-title {
+  font-size: 1.3rem;
+  font-weight: normal;
+  color: #F472B6;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.guestbook-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.guestbook-subtitle {
+  color: rgba(255,255,255,0.45);
+  font-size: 0.85rem;
+  font-family: sans-serif;
+  margin-bottom: 28px;
+}
+
+/* Cusdis dark theme overrides */
+#cusdis_thread iframe {
+  color-scheme: dark;
+}
+
 footer {
   text-align: center;
   padding: 30px;
