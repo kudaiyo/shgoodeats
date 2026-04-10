@@ -581,11 +581,8 @@ footer {
 
   .grid {
     padding: 20px 12px 40px;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: 12px;
-  }
-  .card.expanded {
-    grid-column: 1 / -1;
   }
 
   .card-summary h2 { font-size: 0.85rem; }
