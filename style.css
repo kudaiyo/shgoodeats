@@ -678,7 +678,7 @@ body {
 }
 
 .guestbook-empty {
-  color: rgba(255,255,255,0.35);
+  color: #F472B6;
   font-size: 0.9rem;
   font-family: sans-serif;
   margin-bottom: 28px;
@@ -707,13 +707,13 @@ body {
 }
 
 .comment-date {
-  color: rgba(255,255,255,0.3);
+  color: #F472B6;
   font-size: 0.75rem;
   font-family: sans-serif;
 }
 
 .comment-content {
-  color: rgba(255,255,255,0.82);
+  color: #F472B6;
   font-size: 0.9rem;
   font-family: sans-serif;
   line-height: 1.6;
@@ -728,7 +728,7 @@ body {
   border-radius: 0 6px 6px 0;
   font-size: 0.88rem;
   font-family: sans-serif;
-  color: rgba(255,255,255,0.8);
+  color: #F472B6;
   display: flex;
   gap: 6px;
   align-items: flex-start;
@@ -761,7 +761,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px 14px;
-  color: #fff;
+  color: #F472B6;
   font-size: 0.9rem;
   font-family: sans-serif;
   outline: none;
