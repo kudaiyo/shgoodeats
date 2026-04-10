@@ -57,6 +57,8 @@ const restaurants = [
     dianpingLinks: [
       { url: "https://m.dianping.com/shop/731796035", label: "大众点评（富民路店）", label_en: "Dianping (Fumin Rd)" },
       { url: "https://m.dianping.com/shop/1846224196", label: "大众点评（长寿路店）", label_en: "Dianping (Changshou Rd)" },
+      { url: "https://m.dianping.com/shop/764369471", label: "大众点评（八佰伴陆家嘴店）", label_en: "Dianping (Bābāibàn Lujiazui)" },
+      { url: "https://m.dianping.com/shop/1815870352", label: "大众点评（前滩店）", label_en: "Dianping (Qiantan)" },
     ],
   },
   {
