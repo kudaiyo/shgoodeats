@@ -347,7 +347,7 @@ body {
 }
 
 .card.expanded .card-detail {
-  max-height: 600px;
+  max-height: 2000px;
   padding: 14px 18px 18px;
   -webkit-mask-image: none;
   mask-image: none;
