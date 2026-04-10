@@ -444,7 +444,10 @@ footer {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 600px) {
-  .hero { padding: 60px 20px; }
+  .hero { padding: 50px 20px; }
+  .hero h1 { font-size: 1.6rem; }
+  .tagline { font-size: 0.85rem; }
+
   .grid {
     padding: 20px 12px 40px;
     grid-template-columns: repeat(2, 1fr);
@@ -453,4 +456,21 @@ footer {
   .card.expanded {
     grid-column: 1 / -1;
   }
+
+  .card-summary h2 { font-size: 0.85rem; }
+  .card.expanded .card-summary h2 { font-size: 0.85rem; }
+
+  .summary-meta { font-size: 0.72rem; }
+  .card.expanded .summary-meta { font-size: 0.72rem; }
+
+  .summary-category { font-size: 0.72rem; }
+  .card.expanded .summary-category { font-size: 0.72rem; }
+
+  .card-rating { min-height: 44px; padding: 8px 14px; }
+  .card.expanded .card-rating { min-height: 90px; }
+
+  .card-chili { font-size: 1.4rem; }
+
+  .rating-text { font-size: 1.4rem; width: 38px; height: 38px; top: -19px; }
+  .card.expanded .rating-text { font-size: 3rem; width: 72px; height: 72px; top: -36px; }
 }
