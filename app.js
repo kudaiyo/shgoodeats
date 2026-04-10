@@ -53,11 +53,6 @@ function renderCards(list) {
             <span class="summary-price">💰 ${perPerson}</span>
           </div>
         </div>
-        <button class="expand-btn" aria-label="${t('expand')}">
-          <svg class="expand-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9"/>
-          </svg>
-        </button>
       </div>
       <div class="card-detail">
         <p class="address">📌 ${r_field(r, 'address')}</p>
@@ -72,7 +67,7 @@ function renderCards(list) {
       </div>
     `;
 
-    card.querySelector('.expand-btn').addEventListener('click', () => {
+    card.querySelector('.card-summary').addEventListener('click', () => {
       card.classList.toggle('expanded');
     });
 

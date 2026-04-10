@@ -221,11 +221,10 @@ body {
   padding: 16px 18px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
   cursor: pointer;
   position: relative;
-  padding-right: 80px;
+  user-select: none;
 }
 
 .summary-main { flex: 1; }
@@ -274,24 +273,6 @@ body {
   font-weight: 400;
 }
 
-.expand-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #aaa;
-  padding: 4px;
-  flex-shrink: 0;
-  transition: transform 0.3s ease, color 0.2s;
-}
-
-.expand-btn:hover { color: var(--red); }
-
-.card.expanded .expand-btn {
-  transform: rotate(180deg);
-  color: var(--red);
-}
-
-.expand-icon { display: block; }
 
 /* ── DETAIL (hidden by default) ── */
 .card-detail {
