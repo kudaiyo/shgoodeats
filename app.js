@@ -62,7 +62,8 @@ function renderCards(list) {
           <span class="must-try-label">${t('mustTryLabel')}</span>
           <div class="dish-tags">${dishTags}</div>
         </div>
-        ${r.dianping ? `<a class="dianping-btn" href="${r.dianping}" target="_blank" rel="noopener">${t('dianpingBtn')} →</a>` : ''}
+        ${r.dianping ? `<a class="dianping-btn" href="${r.dianping}" target="_blank" rel="noopener">${r.dianping2 ? (currentLang === 'en' ? 'Dianping (Fumin Rd)' : '大众点评（富民路店）') : t('dianpingBtn')} →</a>` : ''}
+        ${r.dianping2 ? `<a class="dianping-btn" href="${r.dianping2}" target="_blank" rel="noopener">${currentLang === 'en' ? r.dianping2_label_en : r.dianping2_label} →</a>` : ''}
       </div>
     `;
 
