@@ -45,7 +45,7 @@ const translations = {
     mustTryLabel: "Must Try",
     reservationLabel: "📅",
     dianpingBtn: "View on Dianping",
-    byob: "火龙果 tip: BYO 🍷 drinks & 🧋 bubble tea allowed at all Shanghai restaurants",
+    byob: "🍷 火龙果 tip: All Shanghai restaurants allow BYO drinks & bubble tea 🧋",
     footer: "By 火龙果 · Shanghai",
     expand: "Show more",
     collapse: "Show less",
