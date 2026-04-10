@@ -53,7 +53,7 @@ const restaurants = [
     atmosphere: "热闹",
     atmosphere_en: "Lively",
     rating: "夯",
-    spicy: 3,
+    spicy: 2,
     dianpingLinks: [
       { url: "https://m.dianping.com/shop/731796035", label: "大众点评（富民路店）", label_en: "Dianping (Fumin Rd)" },
       { url: "https://m.dianping.com/shop/1846224196", label: "大众点评（长寿路店）", label_en: "Dianping (Changshou Rd)" },
