@@ -110,5 +110,7 @@ document.getElementById('lang-btn').addEventListener('click', () => {
   applyFilter();
 });
 
-updateStaticText();
-applyFilter();
+document.addEventListener('DOMContentLoaded', () => {
+  updateStaticText();
+  applyFilter();
+});
