@@ -63,6 +63,7 @@ function renderCards(list) {
           <span class="must-try-label">${t('mustTryLabel')}</span>
           <div class="dish-tags">${dishTags}</div>
         </div>
+        ${r.dianping ? `<a class="dianping-btn" href="${r.dianping}" target="_blank" rel="noopener">${t('dianpingBtn')} →</a>` : ''}
       </div>
     `;
 

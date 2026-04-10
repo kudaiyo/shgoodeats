@@ -25,6 +25,7 @@ const restaurants = [
     atmosphere_en: "Casual",
     emoji: "🌿",
     rating: "夯",
-    spicy: 1
+    spicy: 1,
+    dianping: "https://m.dianping.com/shop/2201962"
   },
 ];
