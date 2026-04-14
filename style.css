@@ -818,6 +818,58 @@ footer {
   border-top: 1px solid var(--border);
 }
 
+/* ── TAG FILTERS ── */
+.tag-filters {
+  padding: 0 24px 8px;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tag-filter-pane {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.tag-filter-label {
+  font-family: -apple-system, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #888;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  min-width: 70px;
+}
+
+.tag-btn {
+  background: transparent;
+  border: 1.5px solid #ddd;
+  color: #555;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-family: -apple-system, sans-serif;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.tag-btn:hover {
+  border-color: #F472B6;
+  color: #F472B6;
+}
+
+.tag-btn.active {
+  background: #F472B6;
+  border-color: #F472B6;
+  color: #fff;
+  font-weight: 600;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .hero { padding: 50px 20px; }

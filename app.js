@@ -1,10 +1,21 @@
 const grid = document.getElementById('restaurant-grid');
 const filterBtns = document.querySelectorAll('.filter-btn');
 let activeFilter = 'all';
+const activeTags = { occasion: new Set(), atmosphere: new Set(), group: new Set() };
 
 function r_field(r, key) {
   if (currentLang === 'en' && r[key + '_en'] !== undefined) return r[key + '_en'];
   return r[key];
+}
+
+function translateTag(type, zhTag) {
+  const map = translations[currentLang].tagMaps[type];
+  return (map && map[zhTag]) || zhTag;
+}
+
+function renderTags(arr, type) {
+  if (!arr || !arr.length) return '';
+  return arr.map(tag => `<span class="info-pill">${translateTag(type, tag)}</span>`).join('');
 }
 
 function renderCards(list) {
@@ -18,9 +29,9 @@ function renderCards(list) {
     const dishTags = dishes.map(d => `<span class="dish-tag">${d}</span>`).join('');
 
     const metaRows = [
-      r_field(r, 'groupSize')   ? `<span class="info-pill">👥 ${r_field(r, 'groupSize')}</span>` : '',
-      r_field(r, 'occasion')    ? `<span class="info-pill">🎉 ${r_field(r, 'occasion')}</span>` : '',
-      r_field(r, 'atmosphere')  ? `<span class="info-pill">🏠 ${r_field(r, 'atmosphere')}</span>` : '',
+      renderTags(r.groupSize, 'group'),
+      renderTags(r.occasion, 'occasion'),
+      renderTags(r.atmosphere, 'atmosphere'),
     ].filter(Boolean).join('');
 
     const reservationRow = r.reservation
@@ -82,11 +93,41 @@ function renderCards(list) {
   });
 }
 
+function matchesTags(r) {
+  const checks = [
+    { set: activeTags.occasion, arr: r.occasion },
+    { set: activeTags.atmosphere, arr: r.atmosphere },
+    { set: activeTags.group, arr: r.groupSize },
+  ];
+  return checks.every(({ set, arr }) => {
+    if (set.size === 0) return true;
+    if (!arr) return false;
+    return arr.some(tag => set.has(tag));
+  });
+}
+
 function applyFilter() {
-  const filtered = activeFilter === 'all'
-    ? restaurants
-    : restaurants.filter(r => r.category === activeFilter);
+  const filtered = restaurants.filter(r => {
+    const catMatch = activeFilter === 'all' || r.category === activeFilter;
+    return catMatch && matchesTags(r);
+  });
   renderCards(filtered);
+}
+
+function updateTagButtons() {
+  document.querySelectorAll('.tag-btn').forEach(btn => {
+    const type = btn.dataset.type;
+    const tag = btn.dataset.tag;
+    const set = activeTags[type];
+    btn.classList.toggle('active', set && set.has(tag));
+    const map = translations[currentLang].tagMaps[type];
+    btn.textContent = (map && map[tag]) || tag;
+  });
+  const labels = translations[currentLang].tagLabels;
+  document.querySelectorAll('.tag-filter-label').forEach(el => {
+    const type = el.dataset.type;
+    if (labels && labels[type]) el.textContent = labels[type];
+  });
 }
 
 function updateStaticText() {
@@ -100,6 +141,7 @@ function updateStaticText() {
   filterBtns.forEach(btn => {
     btn.textContent = tFilter(btn.dataset.filter);
   });
+  updateTagButtons();
 }
 
 filterBtns.forEach(btn => {
@@ -120,6 +162,22 @@ document.getElementById('lang-btn').addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', () => {
   updateStaticText();
   applyFilter();
+
+  document.querySelectorAll('.tag-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const type = btn.dataset.type;
+      const tag = btn.dataset.tag;
+      const set = activeTags[type];
+      if (set.has(tag)) {
+        set.delete(tag);
+        btn.classList.remove('active');
+      } else {
+        set.add(tag);
+        btn.classList.add('active');
+      }
+      applyFilter();
+    });
+  });
 
   const toggle = document.getElementById('authors-toggle');
   const panel = document.getElementById('authors-panel');
