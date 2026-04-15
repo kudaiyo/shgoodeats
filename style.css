@@ -330,9 +330,17 @@ body {
 
 .card.expanded .expand-hint {
   position: static;
-  order: 999;
+  order: 4;
   align-self: flex-end;
   margin-top: 4px;
+}
+
+.card.expanded .must-try {
+  order: 5;
+}
+
+.card.expanded .dianping-btn {
+  order: 6;
 }
 
 
