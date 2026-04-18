@@ -216,8 +216,8 @@ body {
   min-height: 100px;
 }
 
-.card-rating--spicy { background: #f9ccd8; }
-.card-rating--mild  { background: #fdeef4; }
+.card-rating--spicy { background: #e8829a; }
+.card-rating--mild  { background: #f0b0c4; }
 
 .card-title {
   font-family: 'Noto Serif SC', serif;
