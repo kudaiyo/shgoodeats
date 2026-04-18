@@ -168,7 +168,7 @@ body {
   padding: 20px 40px 60px;
   max-width: 1300px;
   margin: 0 auto;
-  align-items: start;
+  align-items: stretch;
 }
 
 .empty {
@@ -206,10 +206,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   min-height: 60px;
   padding: 10px 14px;
   gap: 8px;
+  overflow: hidden;
   transition: min-height 0.4s ease;
 }
 
@@ -260,8 +261,8 @@ body {
 }
 
 .card.expanded .rating-fruit {
-  width: 72px;
-  height: 56px;
+  width: 52px;
+  height: 40px;
 }
 
 .card-chili {
@@ -272,7 +273,7 @@ body {
 }
 
 .card.expanded .card-chili {
-  font-size: 1.6rem;
+  font-size: 1rem;
 }
 
 /* ── SUMMARY (always visible) ── */
