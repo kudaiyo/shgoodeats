@@ -261,8 +261,13 @@ body {
 }
 
 .card.expanded .rating-fruit {
-  width: 52px;
-  height: 40px;
+  width: 72px;
+  height: 56px;
+}
+
+.card.expanded.card--compact .rating-fruit {
+  width: 48px;
+  height: 38px;
 }
 
 .card-chili {
@@ -273,7 +278,11 @@ body {
 }
 
 .card.expanded .card-chili {
-  font-size: 1rem;
+  font-size: 1.6rem;
+}
+
+.card.expanded.card--compact .card-chili {
+  font-size: 0.85rem;
 }
 
 /* ── SUMMARY (always visible) ── */

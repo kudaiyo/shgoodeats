@@ -50,8 +50,9 @@ function renderCards(list) {
 
     const perPerson = r_field(r, 'perPerson') || r.priceRange;
 
+    const isCompact = (r.rating >= 3 && (r.spicy || 0) >= 3) || (r.rating >= 2 && (r.spicy || 0) >= 5);
     const card = document.createElement('div');
-    card.className = 'card';
+    card.className = isCompact ? 'card card--compact' : 'card';
     card.innerHTML = `
       ${headerContent}
       <div class="card-summary">
