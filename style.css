@@ -994,4 +994,9 @@ footer {
 
   .rating-text { font-size: 1.4rem; width: 38px; height: 38px; top: -19px; }
   .card.expanded .rating-text { font-size: 3rem; width: 72px; height: 72px; top: -36px; }
+
+  .stamp {
+    bottom: -8px;
+    right: -36px;
+  }
 }
