@@ -181,6 +181,15 @@ document.addEventListener('DOMContentLoaded', () => {
   updateStaticText();
   applyFilter();
 
+  // Hide category filter buttons that have no restaurants
+  document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
+    const filter = btn.dataset.filter;
+    if (filter === 'all') return;
+    if (!restaurants.some(r => r.category === filter)) {
+      btn.style.display = 'none';
+    }
+  });
+
   document.querySelectorAll('.tag-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const type = btn.dataset.type;
