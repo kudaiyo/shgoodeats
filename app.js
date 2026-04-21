@@ -1,6 +1,6 @@
 const grid = document.getElementById('restaurant-grid');
 const filterBtns = document.querySelectorAll('.filter-btn');
-let activeFilter = 'all';
+const activeCategories = new Set();
 const activeTags = { occasion: new Set(), atmosphere: new Set(), group: new Set() };
 
 function r_field(r, key) {
@@ -120,7 +120,7 @@ function matchesTags(r) {
 
 function applyFilter() {
   const filtered = restaurants.filter(r => {
-    const catMatch = activeFilter === 'all' || r.category === activeFilter;
+    const catMatch = activeCategories.size === 0 || activeCategories.has(r.category);
     return catMatch && matchesTags(r);
   });
   renderCards(filtered);
@@ -148,6 +148,18 @@ function updateTagButtons() {
   });
 }
 
+function updateCategoryButtons() {
+  filterBtns.forEach(btn => {
+    const filter = btn.dataset.filter;
+    btn.textContent = tFilter(filter);
+    if (filter === 'all') {
+      btn.classList.toggle('active', activeCategories.size === 0);
+    } else {
+      btn.classList.toggle('active', activeCategories.has(filter));
+    }
+  });
+}
+
 function updateStaticText() {
   document.querySelector('.byob-tip').textContent = t('byob');
   document.getElementById('restaurant-count').textContent = translations[currentLang].restaurantCount(restaurants.length);
@@ -156,17 +168,21 @@ function updateStaticText() {
   document.querySelector('.hero h1').textContent = t('title');
   document.querySelector('footer p').textContent = t('footer');
   document.getElementById('lang-btn').textContent = t('langBtn');
-  filterBtns.forEach(btn => {
-    btn.textContent = tFilter(btn.dataset.filter);
-  });
+  updateCategoryButtons();
   updateTagButtons();
 }
 
 filterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
-    filterBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    activeFilter = btn.dataset.filter;
+    const filter = btn.dataset.filter;
+    if (filter === 'all') {
+      activeCategories.clear();
+    } else if (activeCategories.has(filter)) {
+      activeCategories.delete(filter);
+    } else {
+      activeCategories.add(filter);
+    }
+    updateCategoryButtons();
     applyFilter();
   });
 });
