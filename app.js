@@ -163,6 +163,8 @@ function updateCategoryButtons() {
 function updateStaticText() {
   document.querySelector('.byob-tip').textContent = t('byob');
   document.getElementById('restaurant-count').textContent = translations[currentLang].restaurantCount(restaurants.length);
+  document.getElementById('tab-btn-instr').textContent = t('tabInstr');
+  document.getElementById('tab-btn-authors').textContent = t('tabAuthors');
 
   document.querySelector('.subtitle').textContent = t('subtitle');
   document.querySelector('.hero h1').textContent = t('title');
@@ -223,17 +225,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  const toggle = document.getElementById('authors-toggle');
-  const panel = document.getElementById('authors-panel');
-  toggle.addEventListener('click', () => {
-    toggle.classList.toggle('open');
-    panel.classList.toggle('open');
-  });
-
-  const instrToggle = document.getElementById('instructions-toggle');
-  const instrPanel = document.getElementById('instructions-panel');
-  instrToggle.addEventListener('click', () => {
-    instrToggle.classList.toggle('open');
-    instrPanel.classList.toggle('open');
+  document.querySelectorAll('.hero-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.hero-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.hero-tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-panel-' + btn.dataset.tab).classList.add('active');
+    });
   });
 });

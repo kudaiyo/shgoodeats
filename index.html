@@ -27,22 +27,16 @@
         </div>
         <p class="restaurant-count-line" id="restaurant-count"></p>
         <div class="hero-bottom">
-          <div class="hero-instructions">
-            <div class="authors-toggle open" id="instructions-toggle">
-              <span class="authors-toggle-text">食用说明</span>
-              <span class="authors-toggle-icon">&#8964;</span>
-            </div>
-            <div class="hero-authors open" id="instructions-panel">
-              <p class="rating-explainer">一果<img src="rating-icon.png" alt="🐉" class="rating-explainer-icon">到三果<img src="rating-icon.png" alt="🐉" class="rating-explainer-icon"><img src="rating-icon.png" alt="🐉" class="rating-explainer-icon"><img src="rating-icon.png" alt="🐉" class="rating-explainer-icon">，均为火龙果回国必吃之选 · 果级越高，越是火龙果的心头最爱</p>
-              <p class="byob-tip">🍷火龙果温馨提示：上海所有餐厅均可自带酒水和奶茶🧋</p>
-            </div>
+          <div class="hero-tab-bar">
+            <button class="hero-tab active" data-tab="instr" id="tab-btn-instr">食用说明</button>
+            <button class="hero-tab" data-tab="authors" id="tab-btn-authors">关于作者</button>
           </div>
-          <div class="hero-authors-wrap">
-            <div class="authors-toggle open" id="authors-toggle">
-              <span class="authors-toggle-text">关于作者</span>
-              <span class="authors-toggle-icon">&#8964;</span>
-            </div>
-            <div class="authors-inner hero-authors open" id="authors-panel">
+          <div class="hero-tab-content active" id="tab-panel-instr">
+            <p class="rating-explainer">一果<img src="rating-icon.png" alt="🐉" class="rating-explainer-icon">到三果<img src="rating-icon.png" alt="🐉" class="rating-explainer-icon"><img src="rating-icon.png" alt="🐉" class="rating-explainer-icon"><img src="rating-icon.png" alt="🐉" class="rating-explainer-icon">，均为火龙果回国必吃之选 · 果级越高，越是火龙果的心头最爱</p>
+            <p class="byob-tip">🍷火龙果温馨提示：上海所有餐厅均可自带酒水和奶茶🧋</p>
+          </div>
+          <div class="hero-tab-content" id="tab-panel-authors">
+            <div class="authors-inner">
               <div class="author-card">
                 <a href="https://www.linkedin.com/in/yuanke-deng-14a65b370/" target="_blank" rel="noopener">
                   <img class="author-avatar" src="hlg-photo.jpg" alt="火龙果" />
