@@ -1,4 +1,4 @@
-const CACHE_NAME = 'shgoodeats-v7';
+const CACHE_NAME = 'shgoodeats-v8';
 const ASSETS = [
   '/shgoodeats/',
   '/shgoodeats/index.html',
