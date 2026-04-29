@@ -3,6 +3,14 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 const activeCategories = new Set();
 const activeTags = { occasion: new Set(), atmosphere: new Set(), group: new Set() };
 
+function encodeRid(name) {
+  return [...name].map(ch => {
+    const c = ch.codePointAt(0);
+    if ((c >= 0x3000 && c <= 0x9FFF) || (c >= 0xF900 && c <= 0xFAFF) || (c >= 0xFF00 && c <= 0xFFEF)) return ch;
+    return encodeURIComponent(ch);
+  }).join('');
+}
+
 function copyToClipboard(text) {
   if (navigator.clipboard && navigator.clipboard.writeText) {
     return navigator.clipboard.writeText(text);
@@ -168,7 +176,7 @@ function renderCards(list) {
 
     card.querySelector('.share-btn').addEventListener('click', e => {
       e.stopPropagation();
-      const url = location.origin + location.pathname + '?r=' + encodeURIComponent(r.name);
+      const url = location.origin + location.pathname + '?r=' + encodeRid(r.name);
       showShareSheet(url, r_field(r, 'name'));
     });
 
