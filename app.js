@@ -3,6 +3,56 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 const activeCategories = new Set();
 const activeTags = { occasion: new Set(), atmosphere: new Set(), group: new Set() };
 
+function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text);
+  }
+  const el = document.createElement('textarea');
+  el.value = text;
+  el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
+  document.body.appendChild(el);
+  el.focus();
+  el.select();
+  try { document.execCommand('copy'); } catch (_) {}
+  document.body.removeChild(el);
+  return Promise.resolve();
+}
+
+function showShareSheet(url, title) {
+  let sheet = document.getElementById('share-sheet');
+  if (!sheet) {
+    sheet = document.createElement('div');
+    sheet.id = 'share-sheet';
+    sheet.innerHTML = `
+      <div class="share-sheet-overlay"></div>
+      <div class="share-sheet-box">
+        <p class="share-sheet-title"></p>
+        <div class="share-sheet-url-row">
+          <span class="share-sheet-url"></span>
+        </div>
+        <button class="share-sheet-copy"></button>
+        <button class="share-sheet-cancel"></button>
+      </div>
+    `;
+    document.body.appendChild(sheet);
+    sheet.querySelector('.share-sheet-overlay').addEventListener('click', () => sheet.classList.remove('visible'));
+    sheet.querySelector('.share-sheet-cancel').addEventListener('click', () => sheet.classList.remove('visible'));
+    sheet.querySelector('.share-sheet-copy').addEventListener('click', () => {
+      const u = sheet.querySelector('.share-sheet-url').textContent;
+      copyToClipboard(u).then(() => {
+        showToast(currentLang === 'en' ? 'Link copied!' : '链接已复制 ✓');
+        sheet.classList.remove('visible');
+      });
+    });
+  }
+  const isEn = currentLang === 'en';
+  sheet.querySelector('.share-sheet-title').textContent = title;
+  sheet.querySelector('.share-sheet-url').textContent = url;
+  sheet.querySelector('.share-sheet-copy').textContent = isEn ? '📋 Copy link' : '📋 复制链接';
+  sheet.querySelector('.share-sheet-cancel').textContent = isEn ? 'Cancel' : '取消';
+  sheet.classList.add('visible');
+}
+
 function showToast(msg) {
   let toast = document.getElementById('share-toast');
   if (!toast) {
@@ -119,15 +169,7 @@ function renderCards(list) {
     card.querySelector('.share-btn').addEventListener('click', e => {
       e.stopPropagation();
       const url = location.origin + location.pathname + '?r=' + encodeURIComponent(r.name);
-      if (navigator.share) {
-        navigator.share({ title: r_field(r, 'name'), url }).catch(() => {});
-      } else {
-        navigator.clipboard.writeText(url).then(() => {
-          showToast(currentLang === 'en' ? 'Link copied!' : '链接已复制 ✓');
-        }).catch(() => {
-          showToast(currentLang === 'en' ? 'Copy failed' : '复制失败');
-        });
-      }
+      showShareSheet(url, r_field(r, 'name'));
     });
 
     grid.appendChild(card);
