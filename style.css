@@ -607,6 +607,58 @@ body {
   opacity: 0.85;
 }
 
+/* ── SHARE ── */
+.share-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: transparent;
+  border: 1px solid #ddd;
+  color: #888;
+  padding: 9px;
+  border-radius: 8px;
+  font-family: sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.share-btn:hover {
+  background: #f5f5f5;
+  color: #333;
+  border-color: #bbb;
+}
+
+#share-toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  background: rgba(0, 0, 0, 0.82);
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 24px;
+  font-size: 0.88rem;
+  font-family: sans-serif;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+  z-index: 9999;
+}
+#share-toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.card.share-highlight {
+  animation: share-glow 2.5s ease forwards;
+}
+@keyframes share-glow {
+  0%, 25% { box-shadow: 0 0 0 3px #d4a017, 0 6px 28px rgba(212, 160, 23, 0.35); }
+  100% { box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); }
+}
+
 /* ── AUTHORS ── */
 .authors-inner {
   display: flex;

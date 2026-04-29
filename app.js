@@ -3,6 +3,19 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 const activeCategories = new Set();
 const activeTags = { occasion: new Set(), atmosphere: new Set(), group: new Set() };
 
+function showToast(msg) {
+  let toast = document.getElementById('share-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'share-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.add('visible');
+  clearTimeout(toast._hideTimer);
+  toast._hideTimer = setTimeout(() => toast.classList.remove('visible'), 2000);
+}
+
 function r_field(r, key) {
   if (currentLang === 'en' && r[key + '_en'] !== undefined) return r[key + '_en'];
   return r[key];
@@ -53,6 +66,7 @@ function renderCards(list) {
     const isCompact = (r.rating >= 3 && (r.spicy || 0) >= 3) || (r.rating >= 2 && (r.spicy || 0) >= 5);
     const card = document.createElement('div');
     card.className = isCompact ? 'card card--compact' : 'card';
+    card.dataset.rid = r.name;
     card.innerHTML = `
       ${headerContent}
       <div class="card-summary">
@@ -79,6 +93,7 @@ function renderCards(list) {
         ${(r.dianpingLinks || (r.dianping ? [{url: r.dianping, label: t('dianpingBtn'), label_en: t('dianpingBtn')}] : []))
             .map(l => `<a class="dianping-btn" href="${l.url}" target="_blank" rel="noopener">${currentLang === 'en' ? (l.label_en || l.label) : l.label} →</a>`)
             .join('')}
+        <button class="share-btn">${currentLang === 'en' ? '🔗 Share' : '🔗 分享'}</button>
       </div>
     `;
 
@@ -100,6 +115,20 @@ function renderCards(list) {
 
     card.querySelector('.card-summary').addEventListener('click', toggleCard);
     card.querySelectorAll('.expand-hint').forEach(h => h.addEventListener('click', e => { e.stopPropagation(); toggleCard(); }));
+
+    card.querySelector('.share-btn').addEventListener('click', e => {
+      e.stopPropagation();
+      const url = location.origin + location.pathname + '?r=' + encodeURIComponent(r.name);
+      if (navigator.share) {
+        navigator.share({ title: r_field(r, 'name'), url }).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(url).then(() => {
+          showToast(currentLang === 'en' ? 'Link copied!' : '链接已复制 ✓');
+        }).catch(() => {
+          showToast(currentLang === 'en' ? 'Copy failed' : '复制失败');
+        });
+      }
+    });
 
     grid.appendChild(card);
   });
@@ -198,6 +227,18 @@ document.getElementById('lang-btn').addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', () => {
   updateStaticText();
   applyFilter();
+
+  const sharedRid = new URLSearchParams(location.search).get('r');
+  if (sharedRid) {
+    requestAnimationFrame(() => {
+      const target = [...grid.querySelectorAll('.card')].find(c => c.dataset.rid === sharedRid);
+      if (target) {
+        target.classList.add('expanded', 'share-highlight');
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+        setTimeout(() => target.classList.remove('share-highlight'), 2500);
+      }
+    });
+  }
 
   // Hide category filter buttons that have no restaurants
   document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
