@@ -178,8 +178,8 @@ const restaurants = [
     ],
   },
   {
-    name: "鲍师傅象山海鲜（板泉路店）",
-    name_en: "Bào Shīfu Xiangshan Seafood (Banquan Rd)",
+    name: "鲍师傅象山海鲜",
+    name_en: "Bào Shīfu Xiangshan Seafood",
     category: "jiangzhe",
     category_en: "jiangzhe",
     neighborhood: "浦东 · 三林",
@@ -768,7 +768,7 @@ const restaurants = [
   {
     name: "POETS泰狮",
     category: "international",
-    address: "西岸 / 陆家嘴",
+    address: "全市多家分店",
     description: "环境和味道都在线的泰国菜，盲点不出错，各类特色饮料（泰奶、鸡尾酒）也很好喝！两家分店均有室外座位，西岸的店有对着江的大露台，很舒服，适合小范围聚餐或请客。饭点排队，错峰前往或提前排队。",
     mustTry: ["招牌咖喱蟹", "泰式火山排骨", "冬阴功汤", "炭烤猪颈肉", "虾酱空心菜"],
     perPerson: "人均 ¥200–250",
@@ -786,7 +786,7 @@ const restaurants = [
   {
     name: "Tapa Tapa",
     category: "international",
-    address: "静安·富民路 / 西岸",
+    address: "全市多家分店",
     description: "环境和氛围都非常nice，西岸的店有室内也有室外，天气好时对着江很舒服；富民路这家装修非常西班牙，周中某天晚上有Flamenco弗朗明戈表演（可致电确认）。Tapas选择很多，油浸虾、炖牛肚、炸鱿鱼等经典菜色品质都在线，Sangria清爽，适合朋友聚餐聊聊天。",
     mustTry: ["Sangria", "油浸虾", "炖牛肚", "炸鱿鱼", "蟹肉土豆饼"],
     perPerson: "人均 ¥200–250",
