@@ -457,6 +457,10 @@ body {
   font-weight: 400;
 }
 
+.summary-price {
+  flex-basis: 100%;
+}
+
 
 /* ── DETAIL (hidden by default) ── */
 .card-detail {
