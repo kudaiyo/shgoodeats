@@ -199,6 +199,19 @@ function updateStaticText() {
   document.querySelector('.hero h1').textContent = t('title');
   document.querySelector('footer p').textContent = t('footer');
   document.getElementById('lang-btn').textContent = t('langBtn');
+
+  document.querySelector('.rating-explainer').innerHTML = t('ratingExplainer');
+
+  const a1 = translations[currentLang].author1;
+  const a2 = translations[currentLang].author2;
+  const authorCards = document.querySelectorAll('.author-card');
+  authorCards[0].querySelector('.author-name').textContent = a1.name;
+  authorCards[0].querySelector('.author-title').textContent = a1.title;
+  authorCards[0].querySelector('.author-bio').innerHTML = a1.bio;
+  authorCards[1].querySelector('.author-name').textContent = a2.name;
+  authorCards[1].querySelector('.author-title').textContent = a2.title;
+  authorCards[1].querySelector('.author-bio').innerHTML = a2.bio;
+
   updateCategoryButtons();
   updateTagButtons();
 }
