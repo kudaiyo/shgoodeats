@@ -245,7 +245,7 @@ function renderCards(list) {
     const spicyChilis = r.spicy ? '🌶️'.repeat(r.spicy) : '';
 
     const ratingFruits = r.rating
-      ? `<div class="rating-fruits">${'<img src="rating-icon.png" class="rating-fruit" alt="🔥">'.repeat(r.rating)}<button class="rating-info-btn" data-rating="${r.rating}" aria-label="评分说明">i</button></div>`
+      ? `<div class="rating-fruits">${'<img src="rating-icon.png" class="rating-fruit" alt="🔥">'.repeat(r.rating)}</div>`
       : '';
 
     const headerContent = r.rating
@@ -303,12 +303,6 @@ function renderCards(list) {
         card.classList.remove('card--title-compact');
       }
     };
-
-    const infoBtn = card.querySelector('.rating-info-btn');
-    if (infoBtn) infoBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      showRatingTooltip(infoBtn, r.rating);
-    });
 
     card.querySelector('.card-summary').addEventListener('click', toggleCard);
     card.querySelectorAll('.expand-hint').forEach(h => h.addEventListener('click', e => { e.stopPropagation(); toggleCard(); }));
