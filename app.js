@@ -76,8 +76,16 @@ async function generateShareImage(cardEl) {
       useCORS: true,
       allowTaint: true,
       backgroundColor: '#ffffff',
-      scrollX: 0,
-      scrollY: -window.scrollY,
+      imageTimeout: 0,
+      onclone: (_, clonedEl) => {
+        const origFruits = cardEl.querySelectorAll('.rating-fruit');
+        const clonedFruits = clonedEl.querySelectorAll('.rating-fruit');
+        origFruits.forEach((orig, i) => {
+          if (!clonedFruits[i]) return;
+          const r = orig.getBoundingClientRect();
+          clonedFruits[i].style.cssText = `width:${r.width}px;height:${r.height}px;object-fit:contain;flex-shrink:0;margin-right:-10px;transform:rotate(-15deg);`;
+        });
+      },
     });
 
     let overlay = document.getElementById('img-preview-overlay');
