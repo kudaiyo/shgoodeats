@@ -389,8 +389,17 @@ document.addEventListener('DOMContentLoaded', () => {
   updateStaticText();
   applyFilter();
 
-  let sharedRid = new URLSearchParams(location.search).get('r') || '';
-  try { sharedRid = decodeURIComponent(sharedRid); } catch (e) {}
+  function getSharedRid() {
+    const search = location.search || (location.href.split('?')[1] ? '?' + location.href.split('?')[1] : '');
+    const match = search.match(/[?&]r=([^&]*)/);
+    if (!match) return '';
+    let rid = match[1];
+    try { rid = decodeURIComponent(rid); } catch (e) {}
+    try { rid = decodeURIComponent(rid); } catch (e) {}
+    return rid;
+  }
+
+  const sharedRid = getSharedRid();
   if (sharedRid) {
     setTimeout(() => {
       const target = [...grid.querySelectorAll('.card')].find(c => c.dataset.rid === sharedRid);
@@ -399,10 +408,10 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
           const top = target.getBoundingClientRect().top + window.scrollY - 80;
           window.scrollTo({ top, behavior: 'smooth' });
-        }, 300);
-        setTimeout(() => target.classList.remove('share-highlight'), 3000);
+        }, 500);
+        setTimeout(() => target.classList.remove('share-highlight'), 4000);
       }
-    }, 100);
+    }, 300);
   }
 
   // Hide category filter buttons that have no restaurants
