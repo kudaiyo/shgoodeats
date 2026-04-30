@@ -130,6 +130,7 @@ body {
   font-size: 0.82rem;
   color: rgba(255,255,255,0.5);
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .rating-scale {
@@ -137,11 +138,13 @@ body {
   flex-direction: column;
   gap: 6px;
   margin: 0 auto 12px;
+  align-items: center;
 }
 .rating-scale-row {
   display: flex;
   align-items: center;
   gap: 4px;
+  justify-content: center;
 }
 .rating-scale-row span {
   font-family: sans-serif;
