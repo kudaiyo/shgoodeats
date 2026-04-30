@@ -1175,39 +1175,49 @@ footer {
   display: flex;
   align-items: center;
   gap: 10px;
-  max-width: 680px;
-  margin: 0 auto 8px;
-  padding: 0 16px;
+  max-width: 900px;
+  margin: 0 auto 24px;
+  padding: 0 24px;
+}
+.search-bar-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
   background: #fff;
-  border-radius: 14px;
+  border-radius: 100px;
   border: 1.5px solid var(--border);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 0 18px;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-.search-bar:focus-within {
-  border-color: #aaa;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+.search-bar-inner:focus-within {
+  border-color: #999;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
 }
 .search-icon {
-  font-size: 1rem;
   flex-shrink: 0;
-  opacity: 0.5;
+  color: #bbb;
+  transition: color 0.2s;
+}
+.search-bar-inner:focus-within .search-icon {
+  color: #888;
 }
 #search-input {
   flex: 1;
   border: none;
   outline: none;
-  padding: 14px 0;
-  font-size: 1rem;
+  padding: 13px 0;
+  font-size: 0.95rem;
   font-family: sans-serif;
   background: transparent;
   color: #333;
 }
 #search-input::placeholder {
-  color: #bbb;
+  color: #ccc;
 }
 #search-input::-webkit-search-cancel-button {
   cursor: pointer;
+  opacity: 0.4;
 }
 
 .tag-filters {
