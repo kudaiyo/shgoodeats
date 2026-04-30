@@ -125,6 +125,13 @@ body {
   letter-spacing: 0.5px;
 }
 
+.rating-explainer-intro {
+  font-family: sans-serif;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 10px;
+}
+
 .rating-scale {
   display: flex;
   flex-direction: column;
@@ -309,6 +316,58 @@ body {
 .card.expanded.card--title-compact .card-title {
   font-size: clamp(0.75rem, 2.8vw, 1.05rem);
   white-space: nowrap;
+}
+
+.rating-info-btn {
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.75);
+  font-size: 0.6rem;
+  font-weight: 700;
+  font-style: italic;
+  font-family: Georgia, serif;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 3px;
+  padding: 0;
+  line-height: 1;
+  transition: background 0.2s;
+}
+.rating-info-btn:hover {
+  background: rgba(255,255,255,0.32);
+  color: #fff;
+}
+
+#rating-tooltip {
+  position: absolute;
+  background: rgba(26,26,26,0.92);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-family: sans-serif;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s;
+  z-index: 9000;
+  white-space: nowrap;
+}
+#rating-tooltip.visible { opacity: 1; }
+.tip-fruit {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  transform: rotate(-15deg);
 }
 
 .rating-fruits {

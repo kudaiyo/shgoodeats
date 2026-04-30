@@ -160,6 +160,40 @@ async function generateShareImage(cardEl, url) {
   }
 }
 
+function showRatingTooltip(btn, rating) {
+  let tip = document.getElementById('rating-tooltip');
+  if (!tip) {
+    tip = document.createElement('div');
+    tip.id = 'rating-tooltip';
+    document.body.appendChild(tip);
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.rating-info-btn')) tip.classList.remove('visible');
+    }, true);
+  }
+  if (tip._srcBtn === btn && tip.classList.contains('visible')) {
+    tip.classList.remove('visible');
+    tip._srcBtn = null;
+    return;
+  }
+  tip._srcBtn = btn;
+  const label = (translations[currentLang].ratingLabels || [])[rating] || '';
+  const icons = Array(rating).fill('<img src="rating-icon.png" class="tip-fruit" alt="🐉">').join('');
+  tip.innerHTML = `${icons}<span>${label}</span>`;
+  tip.classList.add('visible');
+
+  requestAnimationFrame(() => {
+    const r = btn.getBoundingClientRect();
+    const tipW = tip.offsetWidth;
+    const tipH = tip.offsetHeight;
+    let top = r.top + window.scrollY - tipH - 10;
+    let left = r.left + window.scrollX + r.width / 2 - tipW / 2;
+    if (top < window.scrollY + 8) top = r.bottom + window.scrollY + 8;
+    left = Math.max(8, Math.min(left, window.innerWidth - tipW - 8));
+    tip.style.top = top + 'px';
+    tip.style.left = left + 'px';
+  });
+}
+
 function showToast(msg) {
   let toast = document.getElementById('share-toast');
   if (!toast) {
@@ -211,7 +245,7 @@ function renderCards(list) {
     const spicyChilis = r.spicy ? '🌶️'.repeat(r.spicy) : '';
 
     const ratingFruits = r.rating
-      ? `<div class="rating-fruits">${'<img src="rating-icon.png" class="rating-fruit" alt="🔥">'.repeat(r.rating)}</div>`
+      ? `<div class="rating-fruits">${'<img src="rating-icon.png" class="rating-fruit" alt="🔥">'.repeat(r.rating)}<button class="rating-info-btn" data-rating="${r.rating}" aria-label="评分说明">i</button></div>`
       : '';
 
     const headerContent = r.rating
@@ -269,6 +303,12 @@ function renderCards(list) {
         card.classList.remove('card--title-compact');
       }
     };
+
+    const infoBtn = card.querySelector('.rating-info-btn');
+    if (infoBtn) infoBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      showRatingTooltip(infoBtn, r.rating);
+    });
 
     card.querySelector('.card-summary').addEventListener('click', toggleCard);
     card.querySelectorAll('.expand-hint').forEach(h => h.addEventListener('click', e => { e.stopPropagation(); toggleCard(); }));
