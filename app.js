@@ -93,11 +93,17 @@ async function generateShareImage(cardEl, url) {
     });
 
     const QR_PX = 130 * SCALE;
-    const qrEl = document.createElement('canvas');
-    await new Promise((res, rej) => QRCode.toCanvas(qrEl, url, {
-      width: QR_PX, margin: 2,
-      color: { dark: '#1a1a1a', light: '#f8f4ef' },
-    }, err => err ? rej(err) : res()));
+    const qrWrapper = document.createElement('div');
+    qrWrapper.style.cssText = 'position:fixed;left:-9999px;top:-9999px;';
+    document.body.appendChild(qrWrapper);
+    new QRCode(qrWrapper, {
+      text: url, width: QR_PX, height: QR_PX,
+      colorDark: '#1a1a1a', colorLight: '#f8f4ef',
+      correctLevel: QRCode.CorrectLevel.H,
+    });
+    await new Promise(r => setTimeout(r, 80));
+    const qrEl = qrWrapper.querySelector('canvas');
+    document.body.removeChild(qrWrapper);
 
     const PAD = 20 * SCALE;
     const TEXT_H = 16 * SCALE;
@@ -148,6 +154,7 @@ async function generateShareImage(cardEl, url) {
     overlay.querySelector('.img-preview-close').textContent = isEn ? 'Close' : '关闭';
     overlay.classList.add('visible');
   } catch (e) {
+    console.error('generateShareImage:', e);
     showToast(currentLang === 'en' ? 'Failed to generate image' : '生成失败，请重试');
   }
 }
