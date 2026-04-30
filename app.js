@@ -26,7 +26,7 @@ function copyToClipboard(text) {
   return Promise.resolve();
 }
 
-function showShareSheet(url, title) {
+function showShareSheet(url, title, cardEl) {
   let sheet = document.getElementById('share-sheet');
   if (!sheet) {
     sheet = document.createElement('div');
@@ -38,6 +38,7 @@ function showShareSheet(url, title) {
         <div class="share-sheet-url-row">
           <span class="share-sheet-url"></span>
         </div>
+        <button class="share-sheet-image"></button>
         <button class="share-sheet-copy"></button>
         <button class="share-sheet-cancel"></button>
       </div>
@@ -52,13 +53,58 @@ function showShareSheet(url, title) {
         sheet.classList.remove('visible');
       });
     });
+    sheet.querySelector('.share-sheet-image').addEventListener('click', () => {
+      sheet.classList.remove('visible');
+      generateShareImage(sheet._cardEl);
+    });
   }
   const isEn = currentLang === 'en';
+  sheet._cardEl = cardEl;
   sheet.querySelector('.share-sheet-title').textContent = title;
   sheet.querySelector('.share-sheet-url').textContent = url;
+  sheet.querySelector('.share-sheet-image').textContent = isEn ? '🖼 Save as image' : '🖼 生成图片';
   sheet.querySelector('.share-sheet-copy').textContent = isEn ? '📋 Copy link' : '📋 复制链接';
   sheet.querySelector('.share-sheet-cancel').textContent = isEn ? 'Cancel' : '取消';
   sheet.classList.add('visible');
+}
+
+async function generateShareImage(cardEl) {
+  showToast(currentLang === 'en' ? 'Generating…' : '生成中…');
+  try {
+    const canvas = await html2canvas(cardEl, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#ffffff',
+      scrollX: 0,
+      scrollY: -window.scrollY,
+    });
+
+    let overlay = document.getElementById('img-preview-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'img-preview-overlay';
+      overlay.innerHTML = `
+        <div class="img-preview-bg"></div>
+        <div class="img-preview-box">
+          <p class="img-preview-hint"></p>
+          <img class="img-preview-img" />
+          <button class="img-preview-close"></button>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+      overlay.querySelector('.img-preview-bg').addEventListener('click', () => overlay.classList.remove('visible'));
+      overlay.querySelector('.img-preview-close').addEventListener('click', () => overlay.classList.remove('visible'));
+    }
+
+    const isEn = currentLang === 'en';
+    overlay.querySelector('.img-preview-hint').textContent = isEn ? 'Long-press to save' : '长按图片保存到相册';
+    overlay.querySelector('.img-preview-img').src = canvas.toDataURL('image/png');
+    overlay.querySelector('.img-preview-close').textContent = isEn ? 'Close' : '关闭';
+    overlay.classList.add('visible');
+  } catch (e) {
+    showToast(currentLang === 'en' ? 'Failed to generate image' : '生成失败，请重试');
+  }
 }
 
 function showToast(msg) {
@@ -177,7 +223,7 @@ function renderCards(list) {
     card.querySelector('.share-btn').addEventListener('click', e => {
       e.stopPropagation();
       const url = location.origin + location.pathname + '?r=' + encodeRid(r.name);
-      showShareSheet(url, r_field(r, 'name'));
+      showShareSheet(url, r_field(r, 'name'), card);
     });
 
     grid.appendChild(card);
