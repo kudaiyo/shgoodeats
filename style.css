@@ -1038,6 +1038,37 @@ footer {
   border-top: 1px solid var(--border);
 }
 
+.dian-easter-egg {
+  display: inline-block;
+  margin-top: 10px;
+  cursor: default;
+  position: relative;
+  font-size: 1rem;
+  opacity: 0.35;
+  transition: opacity 0.3s;
+}
+.dian-easter-egg:hover {
+  opacity: 1;
+}
+.dian-msg {
+  display: none;
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  font-family: sans-serif;
+  pointer-events: none;
+}
+.dian-easter-egg:hover .dian-msg {
+  display: block;
+}
+
 /* ── STAMP ── */
 .hero-title-wrap {
   position: relative;
