@@ -55,11 +55,12 @@ function showShareSheet(url, title, cardEl) {
     });
     sheet.querySelector('.share-sheet-image').addEventListener('click', () => {
       sheet.classList.remove('visible');
-      generateShareImage(sheet._cardEl);
+      generateShareImage(sheet._cardEl, sheet._url);
     });
   }
   const isEn = currentLang === 'en';
   sheet._cardEl = cardEl;
+  sheet._url = url;
   sheet.querySelector('.share-sheet-title').textContent = title;
   sheet.querySelector('.share-sheet-url').textContent = url;
   sheet.querySelector('.share-sheet-image').textContent = isEn ? '🖼 Save as image' : '🖼 生成图片';
@@ -68,11 +69,13 @@ function showShareSheet(url, title, cardEl) {
   sheet.classList.add('visible');
 }
 
-async function generateShareImage(cardEl) {
+async function generateShareImage(cardEl, url) {
   showToast(currentLang === 'en' ? 'Generating…' : '生成中…');
   try {
-    const canvas = await html2canvas(cardEl, {
-      scale: 2,
+    const SCALE = 2;
+
+    const cardCanvas = await html2canvas(cardEl, {
+      scale: SCALE,
       useCORS: true,
       allowTaint: true,
       backgroundColor: '#ffffff',
@@ -87,6 +90,39 @@ async function generateShareImage(cardEl) {
         });
       },
     });
+
+    const QR_PX = 130 * SCALE;
+    const qrEl = document.createElement('canvas');
+    await new Promise((res, rej) => QRCode.toCanvas(qrEl, url, {
+      width: QR_PX, margin: 2,
+      color: { dark: '#1a1a1a', light: '#f8f4ef' },
+    }, err => err ? rej(err) : res()));
+
+    const PAD = 20 * SCALE;
+    const TEXT_H = 16 * SCALE;
+    const stripH = PAD + qrEl.height + PAD * 0.6 + TEXT_H + PAD;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = cardCanvas.width;
+    canvas.height = cardCanvas.height + stripH;
+
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#f8f4ef';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(cardCanvas, 0, 0);
+
+    const qrX = (canvas.width - qrEl.width) / 2;
+    const qrY = cardCanvas.height + PAD;
+    ctx.drawImage(qrEl, qrX, qrY);
+
+    ctx.fillStyle = '#888';
+    ctx.font = `${13 * SCALE}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText(
+      currentLang === 'en' ? 'Scan to view' : '扫码查看',
+      canvas.width / 2,
+      qrY + qrEl.height + PAD * 0.6
+    );
 
     let overlay = document.getElementById('img-preview-overlay');
     if (!overlay) {
@@ -107,7 +143,7 @@ async function generateShareImage(cardEl) {
 
     const isEn = currentLang === 'en';
     overlay.querySelector('.img-preview-hint').textContent = isEn ? 'Long-press to save' : '长按图片保存到相册';
-    overlay.querySelector('.img-preview-img').src = canvas.toDataURL('image/png');
+    overlay.querySelector('.img-preview-img').src = canvas.toDataURL('image/jpeg', 0.92);
     overlay.querySelector('.img-preview-close').textContent = isEn ? 'Close' : '关闭';
     overlay.classList.add('visible');
   } catch (e) {
