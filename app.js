@@ -2,6 +2,7 @@ const grid = document.getElementById('restaurant-grid');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const activeCategories = new Set();
 const activeTags = { occasion: new Set(), atmosphere: new Set(), group: new Set() };
+let searchQuery = '';
 
 function encodeRid(name) {
   return [...name].map(ch => {
@@ -282,6 +283,19 @@ function renderCards(list) {
   });
 }
 
+function matchesSearch(r) {
+  if (!searchQuery) return true;
+  const q = searchQuery.toLowerCase();
+  const fields = [
+    r.name, r.name_en,
+    r.description, r.description_en,
+    r.address, r.address_en,
+    ...(Array.isArray(r.mustTry) ? r.mustTry : [r.mustTry]),
+    ...(Array.isArray(r.mustTry_en) ? r.mustTry_en : [r.mustTry_en]),
+  ].filter(Boolean);
+  return fields.some(f => String(f).toLowerCase().includes(q));
+}
+
 function matchesTags(r) {
   const checks = [
     { set: activeTags.occasion, arr: r.occasion },
@@ -298,7 +312,7 @@ function matchesTags(r) {
 function applyFilter() {
   const filtered = restaurants.filter(r => {
     const catMatch = activeCategories.size === 0 || activeCategories.has(r.category);
-    return catMatch && matchesTags(r);
+    return catMatch && matchesTags(r) && matchesSearch(r);
   });
   renderCards(filtered);
 }
@@ -338,6 +352,7 @@ function updateCategoryButtons() {
 }
 
 function updateStaticText() {
+  document.getElementById('search-input').placeholder = currentLang === 'en' ? 'Search restaurants, dishes…' : '搜索餐厅、菜品…';
   document.querySelector('.byob-tip').textContent = t('byob');
   document.getElementById('restaurant-count').textContent = translations[currentLang].restaurantCount(restaurants.length);
   document.getElementById('tab-btn-instr').textContent = t('tabInstr');
@@ -438,6 +453,11 @@ document.addEventListener('DOMContentLoaded', () => {
       updateTagButtons();
       applyFilter();
     });
+  });
+
+  document.getElementById('search-input').addEventListener('input', e => {
+    searchQuery = e.target.value.trim();
+    applyFilter();
   });
 
   document.querySelectorAll('.hero-tab').forEach(btn => {
