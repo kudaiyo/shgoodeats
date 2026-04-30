@@ -88,6 +88,7 @@ async function generateShareImage(cardEl, url) {
           const r = orig.getBoundingClientRect();
           clonedFruits[i].style.cssText = `width:${r.width}px;height:${r.height}px;object-fit:contain;flex-shrink:0;margin-right:-10px;transform:rotate(-15deg);`;
         });
+        clonedEl.querySelectorAll('.dianping-btn, .share-btn').forEach(el => el.style.display = 'none');
       },
     });
 
